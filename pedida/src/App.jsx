@@ -1,17 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function App() {
   const [noPosition, setNoPosition] = useState({ top: "50%", left: "60%" });
-  const [yesClicked, setYesClicked] = useState(false);
+  const [showLove, setShowLove] = useState(false);
+  const noButtonRef = useRef(null);
 
   const moveNoButton = () => {
     const randomTop = Math.floor(Math.random() * 80) + 10; // 10–90%
     const randomLeft = Math.floor(Math.random() * 80) + 10;
     setNoPosition({ top: `${randomTop}%`, left: `${randomLeft}%` });
-  };
-
-  const sayYes = () => {
-    setYesClicked(true);
   };
 
   return (
@@ -28,7 +25,8 @@ function App() {
         fontFamily: "'Poppins', sans-serif",
         overflow: "hidden",
         padding: "1rem",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
+        position: "relative"
       }}
     >
       {showLove ? (
@@ -54,7 +52,7 @@ function App() {
           >
             ¿Quieres ser mi novia? 🌻
           </h1>
-  
+
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
             <button
               onClick={() => setShowLove(true)}
@@ -71,7 +69,7 @@ function App() {
             >
               Sí 💚
             </button>
-  
+
             <button
               onMouseEnter={moveNoButton}
               onTouchStart={moveNoButton}
@@ -84,6 +82,8 @@ function App() {
                 backgroundColor: "#f44336",
                 color: "white",
                 position: "absolute",
+                top: noPosition.top,
+                left: noPosition.left,
                 transition: "0.2s",
                 cursor: "pointer",
                 fontWeight: "bold"
